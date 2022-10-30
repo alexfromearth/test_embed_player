@@ -1,6 +1,7 @@
 import './style.css'
 import artecLogo from './artecLogo.svg'
 
+let savedTextareaValue = '';
 const startHTML = `
   <div>
     <a href="https://staging-cloud.artec3d.com/" target="_blank">
@@ -17,17 +18,20 @@ const startHTML = `
 // helpers
 const getRootNode = () => document.querySelector('#app');
 const getAddEmbedButton = () => document.getElementById('add-embed');
-const getTextAreaValue = () => document.querySelector('.iframe-text')?.value;
+const getTextArea = () => document.querySelector('.iframe-text');
+const getTextAreaValue = () => getTextArea()?.value;
 const openStartScreen = (rootNode) => {
   rootNode.innerHTML = startHTML;
-
+  getTextArea().value = savedTextareaValue;
   getAddEmbedButton().addEventListener('click', onAddEmbedClick)
 }
 const onAddEmbedClick = () => {
-  getAddEmbedButton().removeEventListener('click', onAddEmbedClick)
   const textAreaValue = getTextAreaValue();
 
   if (!textAreaValue) return;
+  getAddEmbedButton().removeEventListener('click', onAddEmbedClick)
+
+  savedTextareaValue = textAreaValue;
 
   const rootNode = getRootNode();
   const embedWrapper = document.createElement('div');

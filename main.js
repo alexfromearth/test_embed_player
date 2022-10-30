@@ -2,11 +2,16 @@ import './style.css'
 import artecLogo from './artecLogo.svg'
 
 let savedTextareaValue = '';
-const startHTML = `
-  <div>
+
+const MainLogo = `
     <a href="https://staging-cloud.artec3d.com/" target="_blank">
       <img src="${artecLogo}" class="logo" alt="Artec Cloud logo" />
     </a>
+`
+
+const startHTML = `
+  <div>
+    ${MainLogo}
     <h1>Hello Artec Cloud QA!</h1>
     <textarea placeholder="Add embed player iframe here" name="iframe text" class="iframe-text"></textarea>
     <div class="card">
@@ -50,6 +55,7 @@ const onAddEmbedClick = () => {
 
   deleteEmbedButton.addEventListener('click', onDeleteEmbedClick);
 
+  embedWrapper.innerHTML = MainLogo;
   embedWrapper.appendChild(iframeWrapper);
   embedWrapper.appendChild(deleteEmbedButton);
 

@@ -100,3 +100,28 @@ a:hover {
   color: #747bff;
 }
 
+#background-input {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#change-background {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+

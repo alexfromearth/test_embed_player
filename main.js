@@ -25,12 +25,32 @@ const getRootNode = () => document.querySelector('#app');
 const getAddEmbedButton = () => document.getElementById('add-embed');
 const getTextArea = () => document.querySelector('.iframe-text');
 const getTextAreaValue = () => getTextArea()?.value;
+const changeBackgroundBtn = document.getElementById('change-background');
+const appWrapper = document.querySelector('.wrapper');
+const backgroundInput = document.getElementById('background-input');
 const openStartScreen = (rootNode) => {
   rootNode.innerHTML = startHTML;
   getTextArea().value = savedTextareaValue;
   getAddEmbedButton().addEventListener('click', onAddEmbedClick)
+  changeBackgroundBtn.addEventListener('click', onChangeBackgroundBtnClick)
 }
-const onAddEmbedClick = () => {
+
+const getBase64Image = (file) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = function () {
+    resolve(reader.result);
+  };
+  reader.onerror = function (error) {
+    reject(error);
+  };
+})
+
+function onChangeBackgroundBtnClick() {
+  backgroundInput.click();
+}
+
+function onAddEmbedClick() {
   const textAreaValue = getTextAreaValue();
 
   if (!textAreaValue) return;
@@ -63,6 +83,15 @@ const onAddEmbedClick = () => {
   rootNode.appendChild(embedWrapper);
 }
 
+function onBackgroundInputChange(event) {
+  const [file] = event.target.files;
+
+  getBase64Image(file).then(dataUrl => {
+    appWrapper.style.backgroundImage = `url(${dataUrl})`
+  })
+}
+
+backgroundInput.addEventListener('change', onBackgroundInputChange)
 openStartScreen(getRootNode());
 
 
